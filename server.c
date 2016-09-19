@@ -77,6 +77,8 @@ int main()
     
     printf("Server recieved: %s\n", buf);
     
+    sendto(soc, buf, 10, 0, (const struct sockaddr *) &s_other, sizeof(struct sockaddr_in));
+    
     close(soc);
     
     return 0;

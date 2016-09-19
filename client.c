@@ -10,10 +10,11 @@
 
 int main()
 {
-	int soc;
-	struct sockaddr_in sockAddr;
+	int soc, len;
+	struct sockaddr_in sockAddr, s_other;
 	
 	unsigned char bytes[] = "hahahahaha";
+	char buf[10];
 	
 	/*unsigned char bytes[] = 
 	{
@@ -27,6 +28,8 @@ int main()
 		printf("Socket failed\n");
 	}
 	
+	len = sizeof(s_other);
+	
 	memset(&sockAddr, 0, sizeof(struct sockaddr));
 
 	sockAddr.sin_family = AF_INET;
@@ -34,6 +37,10 @@ int main()
     inet_aton(/*"80.179.52.100"*/"192.168.0.46", &sockAddr.sin_addr);
     	
 	sendto(soc, bytes, 10, 0, (const struct sockaddr *) &sockAddr, sizeof(struct sockaddr_in));
+	
+	recvfrom(soc, buf, 10, 0, (struct sockaddr *) &s_other, (socklen_t *) &len);
+	
+	printf("Client recieved: %s\n", buf);
 	
 	close(soc);
 	
